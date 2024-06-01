@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "1433:1433"
+    hostname: mssql
+    volumes:
+      - ./configure-db.sh:/opt/mssql/bin/configure-db.sh
+      - ./entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/entrypoint.sh"]
+    healthcheck:
+      test: "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $DB_PASSWORD -Q \"SELECT * FROM sys.databases\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+
+#  spring:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    env_file:
+#      - .env
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      mssql:
+#        condition: service_healthy
+#    links:
+#      - mssql

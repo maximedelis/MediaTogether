@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Register</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="robots" content="index, follow"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+<div class="container">
+<div class="content">
+    <div th:switch="${registered}">
+        <p th:case="true">Account created. <br/>
+            You can now <a th:href="@{/login}">login</a>
+        <form class="form-signin" th:case="*" action="#" th:action="@{/register}" th:object="${registrationForm}"
+              method="POST">
+            <h2 class="form-signin-heading">Please register</h2>
+            <p>
+                <label for="username" class="sr-only">Username</label>
+                <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" required
+                       autofocus>
+                <a th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</a>
+            </p>
+            <p>
+                <label for="password" class="sr-only">Password</label>
+                <input th:field="*{password}" type="password" id="password" name="password" class="form-control" placeholder="Password"
+                       required>
+                <a th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</a>
+
+            </p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+
+<div th:unless="${authenticated}">
+    <h2>Welcome to MediaTogether!</h2>
+    <h3>Login or Signup to get started!</h3>
+    <a href="/login">Login</a>
+    </br>
+    <a href="/register">Signup</a>
+</div>
+
+<div th:if="${authenticated}">
+</div>
+</body>
+</html>
