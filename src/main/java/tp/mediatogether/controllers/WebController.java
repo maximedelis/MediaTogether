@@ -18,7 +18,7 @@ import tp.mediatogether.services.UserService;
 @RequestMapping("")
 public class WebController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public WebController(UserService userService) {
         this.userService = userService;
@@ -26,10 +26,8 @@ public class WebController {
 
     @GetMapping("/")
     public String index(Model model) {
-        // check if user is logged in
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
             model.addAttribute("authenticated", true);
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
         } else {
             model.addAttribute("authenticated", false);
         }
@@ -58,5 +56,6 @@ public class WebController {
         model.addAttribute("registered", true);
         return "register";
     }
+
 
 }
