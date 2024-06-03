@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tp.mediatogether.models.FileDB;
+import tp.mediatogether.models.FileNoData;
 import tp.mediatogether.services.StorageService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/files")
@@ -44,6 +47,11 @@ public class FileController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
                 .body(file.getData());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<FileNoData>> searchFiles() {
+        return ResponseEntity.ok(storageService.getAllFiles());
     }
 
 }

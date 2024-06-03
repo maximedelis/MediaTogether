@@ -17,8 +17,8 @@ public class SocketService {
         for (
                 SocketIOClient client : senderClient.getNamespace().getRoomOperations(room).getClients()) {
             if (!client.getSessionId().equals(senderClient.getSessionId())) {
-                client.sendEvent("get_command",
-                        new CommandResponse(commandName, commandValue));
+                System.out.println(new CommandResponse(commandName, commandValue));
+                client.sendEvent("get_command", new CommandResponse(commandName, commandValue));
             }
         }
     }

@@ -17,10 +17,12 @@ public class SocketModule {
     private static final Logger log = LoggerFactory.getLogger(SocketModule.class);
     private final SocketIOServer server;
     private final CommandHandlerService commandHandlerService;
+    private final SocketService socketService;
 
     public SocketModule(SocketIOServer server, SocketService socketService, CommandHandlerService commandHandlerService) {
         this.server = server;
         this.commandHandlerService = commandHandlerService;
+        this.socketService = socketService;
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
         server.addEventListener("commands", Message.class, onChatReceived());

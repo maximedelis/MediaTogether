@@ -1,5 +1,6 @@
 package tp.mediatogether.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,7 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import tp.mediatogether.models.User;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -22,10 +27,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(new AntPathRequestMatcher("/files/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/files/**")).permitAll()
+                        //.requestMatchers(new AntPathRequestMatcher("/files/**")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("**")).permitAll()
                         .requestMatchers(toH2Console()).permitAll())
+                .cors(cors -> {
+                    cors.configurationSource(corsConfigurationSource());
+                })
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(toH2Console())
                         .ignoringRequestMatchers(new AntPathRequestMatcher("**"))) // dev only
@@ -40,21 +49,19 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    private final List<String> allowedOrigins;
-//
-//    public WebSecurityConfig(@Value("${allowed-origins}") String[] allowedOrigins) {
-//        this.allowedOrigins = List.of(allowedOrigins);
-//    }
-//
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.setAllowedOrigins(allowedOrigins);
-//        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        corsConfiguration.setAllowedHeaders(List.of("*"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfiguration);
-//        return source;
-//    }
+    @Value("#{'${allowed-origins}'.split(',')}")
+    private List<String> allowedOrigins;
+
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(allowedOrigins);
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedHeaders(List.of("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
+    }
 
 }

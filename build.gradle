@@ -35,7 +35,11 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // Socket.io
-    implementation "com.corundumstudio.socketio:netty-socketio:2.0.3"}
+    implementation "com.corundumstudio.socketio:netty-socketio:2.0.3"
+
+    implementation 'com.googlecode.soundlibs:mp3spi:1.9.5-1'
+}
+
 
 tasks.named('test') {
     useJUnitPlatform()

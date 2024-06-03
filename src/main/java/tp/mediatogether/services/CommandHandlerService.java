@@ -15,6 +15,10 @@ public class CommandHandlerService {
     private static final Logger log = LoggerFactory.getLogger(CommandHandlerService.class);
     private Map<String, Command> commandHandlersMap;
 
+    public CommandHandlerService(Map<String, Command> commandHandlersMap) {
+        this.commandHandlersMap = commandHandlersMap;
+    }
+
     public void executeCommand(CommandType commandType,
                                String room,
                                SocketIOClient senderClient,

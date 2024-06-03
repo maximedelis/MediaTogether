@@ -8,4 +8,14 @@ public class CommandResponse {
         this.commandName = commandName;
         this.value = value;
     }
+
+    public CommandType getCommandName() {
+        return commandName;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+
 }
