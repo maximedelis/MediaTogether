@@ -29,14 +29,13 @@ public class FileController {
     public ResponseEntity<?> uploadFile(MultipartFile file) {
         try {
             storageService.store(file);
-            ResponseEntity.ok().body("File uploaded successfully: " + file.getOriginalFilename());
+            return ResponseEntity.ok().body("File uploaded successfully: " + file.getOriginalFilename());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return null;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         if (storageService.getFile(id) == null) {
             return ResponseEntity.notFound().build();

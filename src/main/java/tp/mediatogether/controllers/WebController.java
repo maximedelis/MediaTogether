@@ -1,6 +1,8 @@
 package tp.mediatogether.controllers;
 
 import jakarta.validation.Valid;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,16 +28,25 @@ public class WebController {
 
     @GetMapping("/")
     public String index(Model model) {
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             model.addAttribute("authenticated", true);
-        } else {
-            model.addAttribute("authenticated", false);
+            return "index";
         }
+        model.addAttribute("authenticated", false);
         return "index";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            model.addAttribute("authenticated", true);
+            return "index";
+        }
         model.addAttribute("registrationForm", new RegistrationForm());
         return "register";
     }

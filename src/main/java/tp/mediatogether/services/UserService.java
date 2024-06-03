@@ -16,6 +16,7 @@ public class UserService implements UserDetailsService {
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        init();
     }
 
     public UserDetails loadUserByUsername(String username) {
@@ -34,5 +35,11 @@ public class UserService implements UserDetailsService {
         userRepository.save(newUser);
     }
 
+    public void init() {
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword(passwordEncoder.encode("12345678"));
+        userRepository.save(user);
+    }
 
 }
