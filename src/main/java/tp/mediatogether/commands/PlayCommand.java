@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import tp.mediatogether.services.SocketService;
 import com.corundumstudio.socketio.SocketIOClient;
 
-@Service(CommandType.OPEN_BEAN_NAME)
+@Service(CommandType.PLAY_BEAN_NAME)
 public class PlayCommand implements Command {
 
     private final SocketService service;
