@@ -13,30 +13,32 @@
 </head>
 <body>
 <div class="container">
-<div class="content">
-    <div th:switch="${registered}">
-        <p th:case="true">Account created. <br/>
-            You can now <a th:href="@{/login}">login</a>
-        <form class="form-signin" th:case="*" action="#" th:action="@{/register}" th:object="${registrationForm}"
-              method="POST">
-            <h2 class="form-signin-heading">Please register</h2>
-            <p>
-                <label for="username" class="sr-only">Username</label>
-                <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" required
-                       autofocus>
-                <a th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</a>
-            </p>
-            <p>
-                <label for="password" class="sr-only">Password</label>
-                <input th:field="*{password}" type="password" id="password" name="password" class="form-control" placeholder="Password"
-                       required>
-                <a th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</a>
+    <div class="content">
+        <div th:switch="${registered}">
+            <p th:case="true">Account created. <br/>
+                You can now <a th:href="@{/login}">log in</a>
+            <form class="form-signin" th:case="*" action="#" th:action="@{/register}" th:object="${registrationForm}"
+                  method="POST">
+                <h2 class="form-signin-heading">Please register</h2>
+                <p>
+                    <label for="username" class="sr-only">Username</label>
+                    <input th:field="*{username}" type="text" id="username" name="username" class="form-control"
+                           placeholder="Username" required
+                           autofocus>
+                    <a th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</a>
+                </p>
+                <p>
+                    <label for="password" class="sr-only">Password</label>
+                    <input th:field="*{password}" type="password" id="password" name="password" class="form-control"
+                           placeholder="Password"
+                           required>
+                    <a th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</a>
 
-            </p>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        </form>
+                </p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 </body>
 </html>

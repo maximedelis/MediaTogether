@@ -29,11 +29,9 @@ public class StorageService {
     public void store(MultipartFile multipartFile) throws IOException {
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         FileDB fileDB = new FileDB(filename, multipartFile.getContentType(), multipartFile.getBytes());
-        try {
-            setDurationOfFile(fileDB);
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
+
+        setDurationOfFile(fileDB);
+
         fileDBRepository.save(fileDB);
 
     }
@@ -50,7 +48,7 @@ public class StorageService {
         return fileDBRepository.findAllFilesButData();
     }
 
-    public void setDurationOfFile(FileDB fileDB) throws UnsupportedAudioFileException, IOException {
+    public void setDurationOfFile(FileDB fileDB) throws IOException {
         File convFile = new File(fileDB.getName());
         byte[] data = fileDB.getData();
 
@@ -58,14 +56,19 @@ public class StorageService {
         outputStream.write(data);
         outputStream.close();
 
-        AudioFileFormat baseFileFormat = null;
-        baseFileFormat = new MpegAudioFileReader().getAudioFileFormat(convFile);
+        try {
+            AudioFileFormat baseFileFormat = null;
+            baseFileFormat = new MpegAudioFileReader().getAudioFileFormat(convFile);
 
-        Map properties = baseFileFormat.properties();
+            Map properties = baseFileFormat.properties();
 
-        System.out.println(properties);
-        Long duration = (Long) properties.get("duration");
-        fileDB.setDuration(duration);
+            System.out.println(properties);
+            Long duration = (Long) properties.get("duration");
+            fileDB.setDuration(duration);
+        } catch (UnsupportedAudioFileException e) {
+            convFile.delete();
+            throw new IOException("Unsupported audio file format");
+        }
 
         convFile.delete();
         fileDBRepository.save(fileDB);

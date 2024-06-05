@@ -1,9 +1,7 @@
-package tp.mediatogether.controllers;
+package tp.mediatogether.controllers.api;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tp.mediatogether.models.FileDB;
@@ -12,20 +10,14 @@ import tp.mediatogether.services.StorageService;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/files")
+@RestController
+@RequestMapping("/api/files")
 public class FileController {
 
     private final StorageService storageService;
 
     public FileController(StorageService storageService) {
         this.storageService = storageService;
-    }
-
-
-    @GetMapping("/upload")
-    public String upload(Model model) {
-        return "upload";
     }
 
     @PostMapping("/upload")
@@ -53,5 +45,4 @@ public class FileController {
     public ResponseEntity<List<FileNoData>> searchFiles() {
         return ResponseEntity.ok(storageService.getAllFiles());
     }
-
 }
