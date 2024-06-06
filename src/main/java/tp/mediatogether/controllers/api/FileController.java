@@ -32,7 +32,7 @@ public class FileController {
     }
 
     @GetMapping("/download/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         if (storageService.getFile(id) == null) {
             return ResponseEntity.notFound().build();
         }

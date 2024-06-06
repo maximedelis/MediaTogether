@@ -36,8 +36,8 @@ public class StorageService {
 
     }
 
-    public FileDB getFile(String id) {
-        return fileDBRepository.findById(id).orElse(null);
+    public FileDB getFile(Long id) {
+        return fileDBRepository.findById(id);
     }
 
     public void deleteFile(String id) {

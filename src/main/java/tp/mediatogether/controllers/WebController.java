@@ -111,14 +111,15 @@ public class WebController {
         return "redirect:/room";
     }
 
-    @PostMapping("/play/{id}")
-    public String play(@PathVariable String id, HttpSession session) {
+    @GetMapping("/play/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         if (storageService.getFile(id) == null) {
-            session.setAttribute("message", "File not found");
+            return ResponseEntity.notFound().build();
         }
         FileDB file = storageService.getFile(id);
-        session.setAttribute("playing_song", file);
-        return "redirect:/room";
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .body(file.getData());
     }
 
 }

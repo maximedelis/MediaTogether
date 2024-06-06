@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Room</title>
     <link rel="stylesheet" href="/styles.css"/>
+
+    <script src=
+                    "https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
+
 </head>
 <body>
 
@@ -17,6 +22,7 @@
 </div>
 
 <div th:if="${session.room_name}">
+
     <h2>Welcome to room <span th:text="${session.room_name}"></span>!</h2>
     <h3>What would you like to listen?</h3>
 
@@ -24,9 +30,9 @@
 
     <table>
         <tr>
-            <th>Song</th>
-            <th>Artist</th>
-            <th>Album</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
             <th>Duration</th>
             <th>Play!</th>
         </tr>
@@ -36,16 +42,13 @@
             <td th:text="${song.type}"></td>
             <td th:text="${song.duration}"></td>
             <td>
-                <button onclick="getSong([[${song.id}]])">Play</button>
+                <button th:id="${song.id}">Play</button>
         </tr>
     </table>
 
     </br>
 
-    <audio controls>
-        <source id="music-player" th:if="${playing_song}" th:src="${playing_song.getData()}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <div id="audioDiv"></div>
 
     </br>
 
@@ -58,9 +61,13 @@
     </br>
     <a href="/upload">Upload a new file</a>
 
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+    <script>const roomName = [[${session.room_name}]];</script>
+    <script src="/websocket.js"></script>
+
+
 </div>
 
-<script src="/websocket.js"></script>
 
 </body>
 </html>

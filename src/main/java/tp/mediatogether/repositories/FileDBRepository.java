@@ -13,4 +13,7 @@ public interface FileDBRepository extends JpaRepository<FileDB, String> {
     @Query("SELECT f.id as id, f.name as name, f.type as type, f.duration as duration FROM FileDB f")
     List<FileNoData> findAllFilesButData();
 
+    // Query to get a file by its id
+    FileDB findById(Long id);
+
 }
