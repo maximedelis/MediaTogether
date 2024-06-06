@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tp.mediatogether.models.FileDB;
 import tp.mediatogether.models.FileNoData;
 import tp.mediatogether.services.StorageService;
@@ -21,7 +22,7 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(MultipartFile file) {
+    public ResponseEntity<?> uploadFile(MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
             storageService.store(file);
             return ResponseEntity.ok().body("File uploaded successfully: " + file.getOriginalFilename());

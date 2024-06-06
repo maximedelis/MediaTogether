@@ -7,17 +7,20 @@
 </head>
 <body>
 
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/upload">
+        <div>
+            File to upload:
+            </br>
+            <input type="file" name="file" />
+            </br>
+            <input type="submit" value="Upload" />
+        </div>
+    </form>
 </div>
 
-<div>
-    <form method="POST" enctype="multipart/form-data" action="/api/files/upload">
-        <table>
-            <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-        </table>
-    </form>
+<div th:if="${message}">
+    <a th:text="${message}"/>
 </div>
 
 <div>
