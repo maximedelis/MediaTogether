@@ -36,18 +36,18 @@
             <td th:text="${song.type}"></td>
             <td th:text="${song.duration}"></td>
             <td>
-                <form method="POST" action="/play">
-                    <input type="hidden" name="id" th:value="${song.id}" />
-                    <input type="hidden" name="room_name" th:value="${session.room_name}" />
-                    <input type="submit" value="Play" />
-                </form>
+                <button onclick="getSong([[${song.id}]])">Play</button>
         </tr>
     </table>
 
+    </br>
+
     <audio controls>
-        <source th:if="${playing_song}" th:src="${playing_song.getData()}" type="audio/mpeg">
+        <source id="music-player" th:if="${playing_song}" th:src="${playing_song.getData()}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+
+    </br>
 
     <a th:if="${message}" th:text="${message}"></a>
 
@@ -57,9 +57,10 @@
     <a href="/room">Join another room</a>
     </br>
     <a href="/upload">Upload a new file</a>
+
 </div>
 
-<script src="static/websocket.js"></script>
-<!-- https://shdhumale.wordpress.com/2022/05/31/websocket-concept-with-java-springboot/ -->
+<script src="/websocket.js"></script>
+
 </body>
 </html>

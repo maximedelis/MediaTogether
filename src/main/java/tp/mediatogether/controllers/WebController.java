@@ -10,9 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tp.mediatogether.models.FileDB;
@@ -110,16 +108,16 @@ public class WebController {
     @PostMapping("/room")
     public String roomPost(String room_name, HttpSession session) {
         session.setAttribute("room_name", room_name);
-        return "room";
+        return "redirect:/room";
     }
 
-    @PostMapping("/play")
-    public String play(String id, Model model) {
+    @PostMapping("/play/{id}")
+    public String play(@PathVariable String id, HttpSession session) {
         if (storageService.getFile(id) == null) {
-            model.addAttribute("message", "File not found");
+            session.setAttribute("message", "File not found");
         }
         FileDB file = storageService.getFile(id);
-        model.addAttribute("playing_song", file);
+        session.setAttribute("playing_song", file);
         return "redirect:/room";
     }
 
