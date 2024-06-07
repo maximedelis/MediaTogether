@@ -9,23 +9,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import tp.mediatogether.models.Message;
 import tp.mediatogether.services.CommandHandlerService;
-import tp.mediatogether.services.SocketService;
 
 @Component
 public class SocketModule {
 
     private static final Logger log = LoggerFactory.getLogger(SocketModule.class);
-    private final SocketIOServer server;
     private final CommandHandlerService commandHandlerService;
-    private final SocketService socketService;
 
-    public SocketModule(SocketIOServer server, SocketService socketService, CommandHandlerService commandHandlerService) {
-        this.server = server;
+    public SocketModule(SocketIOServer server, CommandHandlerService commandHandlerService) {
         this.commandHandlerService = commandHandlerService;
-        this.socketService = socketService;
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
-        server.addEventListener("commands", Message.class, onChatReceived());
+        server.addEventListener("command", Message.class, onChatReceived());
     }
 
     private DataListener<Message> onChatReceived() {

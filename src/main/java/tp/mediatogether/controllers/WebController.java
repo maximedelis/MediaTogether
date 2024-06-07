@@ -107,7 +107,13 @@ public class WebController {
 
     @PostMapping("/room")
     public String roomPost(String room_name, HttpSession session) {
+        if (room_name == null || room_name.isEmpty()) {
+            session.removeAttribute("room_name");
+            return "redirect:/room";
+        }
+        System.out.println(room_name);
         session.setAttribute("room_name", room_name);
+        System.out.println(session.getAttribute("room_name"));
         return "redirect:/room";
     }
 

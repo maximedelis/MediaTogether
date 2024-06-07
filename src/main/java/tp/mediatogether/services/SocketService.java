@@ -15,10 +15,10 @@ public class SocketService {
     public void sendCommand(String room, SocketIOClient senderClient, CommandType commandName, String commandValue) {
         log.info("Command sent: {}", commandName.toString());
         for (
-                SocketIOClient client : senderClient.getNamespace().getRoomOperations(room).getClients()) {
-            if (!client.getSessionId().equals(senderClient.getSessionId())) {
+                SocketIOClient clients : senderClient.getNamespace().getRoomOperations(room).getClients()) {
+            if (!clients.getSessionId().equals(senderClient.getSessionId())) {
                 System.out.println(new CommandResponse(commandName, commandValue));
-                client.sendEvent("get_command", new CommandResponse(commandName, commandValue));
+                clients.sendEvent("get_command", new CommandResponse(commandName, commandValue));
             }
         }
     }

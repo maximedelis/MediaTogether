@@ -13,7 +13,7 @@ import java.util.Map;
 public class CommandHandlerService {
 
     private static final Logger log = LoggerFactory.getLogger(CommandHandlerService.class);
-    private Map<String, Command> commandHandlersMap;
+    private final Map<String, Command> commandHandlersMap;
 
     public CommandHandlerService(Map<String, Command> commandHandlersMap) {
         this.commandHandlersMap = commandHandlersMap;
@@ -23,7 +23,7 @@ public class CommandHandlerService {
                                String room,
                                SocketIOClient senderClient,
                                String commandValue) {
-        log.info("Selected command:{}", commandType.beanName());
+        log.info("Selected command: {}", commandType.beanName());
         commandHandlersMap.get(commandType.beanName()).execute(room, commandValue, senderClient);
     }
 

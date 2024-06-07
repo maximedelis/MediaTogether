@@ -34,7 +34,7 @@
             <th>Name</th>
             <th>Type</th>
             <th>Duration</th>
-            <th>Play!</th>
+            <th>Load</th>
         </tr>
         <tr th:each="song : ${songs}">
             <td th:text="${song.id}"></td>
@@ -43,42 +43,34 @@
             <td th:text="${song.duration}"></td>
             <td>
                 <button th:id="${song.id}">Play</button>
+            </td>
         </tr>
     </table>
 
     </br>
 
-
     <div id="audioDiv"></div>
-
-    <!--
-    <div class="controls">
-        <button id="play-pause-button">Play</button>
-        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
-    </div>
-    <div class="progress">
-        <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    <div id="current-time">0:00</div>
-    <div id="total-time">0:00</div>
-    -->
-
+    <input type="range" id="current_time" min="0" max="100" value="0" step="1" />
 
     </br>
 
     <a th:if="${message}" th:text="${message}"></a>
 
+    </br>
 
+    <form method="POST" action="/room">
+        <input type="hidden" name="room_name" value="" />
+        <input type="submit" value="Leave Room" />
+    </form>
 
     </br>
-    <a href="/room">Join another room</a>
-    </br>
+
     <a href="/upload">Upload a new file</a>
 
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
 
     <script>const sizeSongs = [[${#lists.size(songs)}]]</script>
-    <script>const roomName = [[${session.room_name}]];</script>
+    <script>const roomName = "[[${session.room_name}]]";</script>
 
     <script src="/websocket.js"></script>
 
