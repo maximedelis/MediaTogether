@@ -7,7 +7,7 @@ audio.id = 'audio';
 const SYNC_INTERVAL = 3000;
 const currentTimeInput = document.getElementById('current_time');
 
-const ws = io('http://192.168.60.151:8085', {
+const ws = io('http://localhost:8085', {
     query: {
         room: roomName
     }
@@ -23,7 +23,7 @@ function sendMessage(room, command, value) {
 }
 
 async function loadSong(id) {
-    const response = await fetch("http://192.168.60.151:8080/play/" + id);
+    const response = await fetch("http://localhost:8080/play/" + id);
     const data = await response.arrayBuffer();
     const blob = new Blob([data], { type: "audio/mpeg" });
     const blobUrl = URL.createObjectURL(blob);
@@ -38,6 +38,7 @@ async function loadSong(id) {
     stopButton.onclick = function () {
         audio.pause();
         audio.currentTime = 0;
+        currentTimeInput.value = 0;
         sendMessage(roomName, 'STOP', null);
     }
     audioDiv.appendChild(stopButton);
@@ -73,7 +74,7 @@ function syncCurrentTime() {
 
 fastAddEventListener(audio, 'timeupdate', syncCurrentTime);
 
-currentTimeInput.addEventListener('drag', function () {
+currentTimeInput.addEventListener('mousedown', function () {
     fastRemoveEventListener(audio, 'timeupdate', syncCurrentTime);
 });
 
@@ -89,7 +90,6 @@ for (let i = 1; i < sizeSongs+1; i++) {
     button.addEventListener('click', function () {
         loadSong(i);
         sendMessage(roomName, 'OPEN', i);
-        //let interval = setInterval(sync, SYNC_INTERVAL);
     });
 }
 
@@ -106,6 +106,7 @@ ws.on('get_command', function (data) {
     } else if (data.commandName === 'STOP') {
         audio.pause();
         audio.currentTime = 0;
+        currentTimeInput.value = 0;
     } else if (data.commandName === 'VOLUME') {
         audio.volume = data.value;
     } else if (data.commandName === 'SYNC') {

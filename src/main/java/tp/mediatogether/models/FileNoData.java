@@ -4,5 +4,4 @@ public interface FileNoData {
     Long getId();
     String getName();
     String getType();
-    Long getDuration();
 }

@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <title>Room</title>
     <link rel="stylesheet" href="/styles.css"/>
-
-    <script src=
-                    "https://code.jquery.com/jquery-3.6.0.min.js">
-    </script>
-
 </head>
 <body>
 
@@ -33,16 +28,14 @@
             <th>ID</th>
             <th>Name</th>
             <th>Type</th>
-            <th>Duration</th>
             <th>Load</th>
         </tr>
         <tr th:each="song : ${songs}">
             <td th:text="${song.id}"></td>
             <td th:text="${song.name}"></td>
             <td th:text="${song.type}"></td>
-            <td th:text="${song.duration}"></td>
             <td>
-                <button th:id="${song.id}">Play</button>
+                <button th:id="${song.id}">Load</button>
             </td>
         </tr>
     </table>

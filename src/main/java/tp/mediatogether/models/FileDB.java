@@ -12,7 +12,6 @@ public class FileDB {
 
     private String name;
     private String type;
-    private Long duration;
 
     @Lob
     private byte[] data;
@@ -40,14 +39,6 @@ public class FileDB {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Long duration) {
-        this.duration = duration;
     }
 
     public Long getId() {

@@ -10,7 +10,7 @@ import java.util.List;
 public interface FileDBRepository extends JpaRepository<FileDB, String> {
 
     // Query to get all files but data
-    @Query("SELECT f.id as id, f.name as name, f.type as type, f.duration as duration FROM FileDB f")
+    @Query("SELECT f.id as id, f.name as name, f.type as type FROM FileDB f")
     List<FileNoData> findAllFilesButData();
 
     // Query to get a file by its id
