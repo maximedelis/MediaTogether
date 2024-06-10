@@ -1,6 +1,7 @@
 package tp.mediatogether.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "files")
@@ -10,11 +11,13 @@ public class FileDB {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Name cannot be empty.")
     private String name;
     private String type;
     private String uploader;
 
     @Lob
+    @NotEmpty(message = "File cannot be empty.")
     private byte[] data;
 
     public FileDB() {

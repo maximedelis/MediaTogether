@@ -2,6 +2,7 @@ package tp.mediatogether.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tp.mediatogether.repositories.UserRepository;
@@ -19,8 +20,12 @@ public class UserService implements UserDetailsService {
         init();
     }
 
-    public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (checkExists(username)) {
+            return userRepository.findByUsername(username);
+        } else {
+            throw new UsernameNotFoundException("User not found");
+        }
     }
 
 

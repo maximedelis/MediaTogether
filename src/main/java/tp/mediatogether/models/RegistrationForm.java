@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 public class RegistrationForm {
 
     @Size(min = 4, max = 16, message = "Username must be between 4 and 16 characters")
-    @Pattern(regexp = "[ -~]*", message = "must contain printable ascii char")
+    @Pattern(regexp = "[ -~]*", message = "Username must contain printable ascii char ONLY")
     private String username;
 
     @Size(min = 8, max = 64, message = "Password must be between 8 and 64 characters")

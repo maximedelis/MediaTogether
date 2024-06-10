@@ -38,8 +38,13 @@ async function loadSong(id) {
     audioDiv.appendChild(audio);
 
     const stopButton = document.createElement('button');
-    stopButton.innerHTML = 'Stop';
+    //stopButton.innerHTML = 'Stop';
+    stopButton.style.width = '24px';
+    stopButton.style.height = '24px';
+    stopButton.style.border = 'none';
+    stopButton.style.background = 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyeiIvPgogICAgPC9nPgo8L3N2Zz4K) no-repeat 55%';
     stopButton.id = 'stop';
+    stopButton.title = 'Stop the music';
     stopButton.onclick = function () {
         audio.pause();
         audio.currentTime = 0;
@@ -68,7 +73,11 @@ function setTotalTime() {
 
 const playPauseButton = document.createElement('button');
 playPauseButton.id = 'play-pause';
-playPauseButton.innerHTML = 'Play';
+playPauseButton.style.width = '24px';
+playPauseButton.style.height = '24px';
+playPauseButton.style.border = 'none';
+playPauseButton.title = 'Play/Pause';
+playPauseButton.style.background = 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTggNXYxNGwxMS03eiIvPjwvc3ZnPgo=) no-repeat 55%';
 playPauseButton.onclick = function () {
     if (audio.paused) {
         audio.play();
@@ -97,12 +106,14 @@ audio.addEventListener('mute', function () {
 
 audio.addEventListener('play', function () {
     sendMessage(roomName, 'PLAY', null);
-    playPauseButton.innerHTML = 'Pause';
+    //playPauseButton.innerHTML = 'Pause';
+    playPauseButton.style.background = 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTYgMTloNFY1SDZ2MTR6bTgtMTR2MTRoNFY1aC00eiIvPjwvc3ZnPgo=) no-repeat 55%';
 });
 
 audio.addEventListener('pause', function () {
     sendMessage(roomName, 'PAUSE', null);
-    playPauseButton.innerHTML = 'Play';
+    //playPauseButton.innerHTML = 'Play';
+    playPauseButton.style.background = 'url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTggNXYxNGwxMS03eiIvPjwvc3ZnPgo=) no-repeat 55%';
 });
 
 audio.addEventListener('timeupdate', function () {

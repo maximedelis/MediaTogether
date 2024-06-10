@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
+
+<div id="menu">
+    <a style="background: url(https://www.svgrepo.com/download/422490/home-house.svg) 55% no-repeat; width: 24px; height: 24px; background-size: 24px 24px" href="/"></a>
+    <a style="background: url(https://a-v2.sndcdn.com/assets/images/stations-dark-9ffb9f94.svg) 55% no-repeat; width: 24px; height: 24px; background-size: 26px 26px" href="/room"></a>
+    <a style="background: url(http://simpleicon.com/wp-content/uploads/cloud-upload-2.svg) center no-repeat; width: 24px; height: 24px; background-size: 24px 24px" href="/upload"></a>
+    <a style="background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGZpbGw9IiMzMzMiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjEgMTEuODZjLS44MjUtLjQxOC0xLjI0My0xLjUzNi0xLjI0My0yLjMyIDAtLjQuMjY4LS43MzUuNTA3LTEuMDA3LjY0OC0uNzQzIDEuMTU0LTEuNjI0IDEuMTU0LTMuNTA3QzEyLjUxOCAyLjI1IDEwLjg1OCAxIDguOTg4IDFjLTEuODcgMC0zLjUzIDEuMjUtMy41MyA0LjAyNiAwIDEuODgzLjUwNSAyLjc2NCAxLjE1MyAzLjUwNy4yNC4yNzIuNTEuNjA3LjUxIDEuMDA2IDAgLjc4NC0uNDIgMS45MDItMS4yNDYgMi4zMi0xLjI0NC42My0zLjQyMyAxLjE2Ny00LjM2NSAxLjg4Qy4yNSAxNC42OTUgMCAxNyAwIDE3aDE4cy0uMjc3LTIuMzA2LTEuNTM0LTMuMjZjLS45NDItLjcxMy0zLjEyLTEuMjUtNC4zNjUtMS44OHoiLz4KPC9zdmc+Cg==) 55% no-repeat; width: 24px; height: 24px" href="/profile"></a>
+    <a style="background: url(https://www.svgrepo.com/download/21304/logout.svg) center no-repeat; width: 24px; height: 24px; background-size: 24px 24px" href="/logout"></a>
+</div>
 
 <h2>Welcome to your profile page <span th:text="${user.getUsername()}"></span>!</h2>
 
@@ -27,7 +37,6 @@
         </td>
     </tr>
 </table>
-
 
 <script>
 

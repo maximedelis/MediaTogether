@@ -20,6 +20,7 @@
             <form class="form-signin" th:case="*" action="#" th:action="@{/register}" th:object="${registrationForm}"
                   method="POST">
                 <h2 class="form-signin-heading">Please register</h2>
+                <p>Already registered? <a href="/login">Log in now!</a></p>
                 <p>
                     <label for="username" class="sr-only">Username</label>
                     <input th:field="*{username}" type="text" id="username" name="username" class="form-control"
