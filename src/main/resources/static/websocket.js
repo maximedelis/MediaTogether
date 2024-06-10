@@ -12,7 +12,7 @@ const divCurrentTime = document.getElementById('current-time');
 const divTotalTime = document.getElementById('total-time');
 const divControls = document.getElementById('controls');
 
-const ws = io('http://localhost:8085', {
+const ws = io('http://' + hostIp +':8085', {
     query: {
         room: roomName
     }
@@ -28,7 +28,7 @@ function sendMessage(room, command, value) {
 }
 
 async function loadSong(id) {
-    const response = await fetch("http://localhost:8080/play/" + id);
+    const response = await fetch("http://"+ hostIp + ":8080/play/" + id);
     const data = await response.arrayBuffer();
     const blob = new Blob([data], { type: "audio/mpeg" });
     const blobUrl = URL.createObjectURL(blob);

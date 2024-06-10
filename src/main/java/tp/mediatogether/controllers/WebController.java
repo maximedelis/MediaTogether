@@ -3,6 +3,7 @@ package tp.mediatogether.controllers;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -31,6 +32,9 @@ public class WebController {
 
     private final UserService userService;
     private final StorageService storageService;
+
+    @Value("${socket-server.host}")
+    private String hostIp;
 
 
     public WebController(UserService userService, StorageService storageService) {
@@ -121,6 +125,7 @@ public class WebController {
     public String room(Model model) {
         List<FileNoData> files = storageService.getAllFiles();
         model.addAttribute("songs", files);
+        model.addAttribute("host_ip", hostIp); // Replace $HOST_IP$ with your host IP (e.g.
         return "room";
     }
 

@@ -27,6 +27,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize
+                        //.requestMatchers(toH2Console()).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/upload/**")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/profile/**")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/room/**")).authenticated()
@@ -34,13 +35,12 @@ public class WebSecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/delete/**")).authenticated()
 
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("**")).permitAll()
-                        .requestMatchers(toH2Console()).permitAll())
+                        .requestMatchers(new AntPathRequestMatcher("**")).permitAll())
                 .cors(cors -> {
                     cors.configurationSource(corsConfigurationSource());
                 })
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(toH2Console())
+                        //.ignoringRequestMatchers(toH2Console())
                         .ignoringRequestMatchers(new AntPathRequestMatcher("**"))) // dev only
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
@@ -55,7 +55,6 @@ public class WebSecurityConfig {
 
     @Value("#{'${allowed-origins}'.split(',')}")
     private List<String> allowedOrigins;
-
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
