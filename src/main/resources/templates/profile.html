@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
-$END$
+
+<h2>Welcome to your profile page <span th:text="${user.getUsername()}"></span>!</h2>
+
+<p>Files you have uploaded:</p>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="song : ${songs}">
+        <td th:text="${song.id}"></td>
+        <td th:text="${song.name}"></td>
+        <td th:text="${song.type}"></td>
+        <td>
+            <button th:id="${song.id}">Delete</button>
+        </td>
+    </tr>
+</table>
+
+
+<script>
+
+document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', async () => {
+
+            const confirmed = confirm('Are you sure you want to delete this file?');
+            if (!confirmed) {
+                return;
+            }
+
+            const id = button.id;
+            const response = await fetch(`/delete/${id}`, {
+                method: 'POST'
+            });
+            if (response.ok) {
+                button.parentElement.parentElement.remove();
+            }
+        });
+    });
+
+</script>
+
 </body>
 </html>

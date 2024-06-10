@@ -21,9 +21,9 @@ public class StorageService {
         this.fileDBRepository = fileDBRepository;
     }
 
-    public void store(MultipartFile multipartFile) throws IOException {
+    public void store(MultipartFile multipartFile, String uploader) throws IOException {
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        FileDB fileDB = new FileDB(filename, multipartFile.getContentType(), multipartFile.getBytes());
+        FileDB fileDB = new FileDB(filename, multipartFile.getContentType(), uploader, multipartFile.getBytes());
 
         fileDBRepository.save(fileDB);
 
@@ -33,12 +33,16 @@ public class StorageService {
         return fileDBRepository.findById(id);
     }
 
-    public void deleteFile(String id) {
+    public void deleteFile(Long id) {
         fileDBRepository.deleteById(id);
     }
 
     public List<FileNoData> getAllFiles() {
         return fileDBRepository.findAllFilesButData();
+    }
+
+    public List<FileNoData> getAllFilesByUploader(String uploader) {
+        return fileDBRepository.findAllFilesButDataByUploader(uploader);
     }
 
 

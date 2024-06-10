@@ -27,8 +27,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(new AntPathRequestMatcher("/files/**")).permitAll()
-                        //.requestMatchers(new AntPathRequestMatcher("/files/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/upload/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/profile/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/room/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/play/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/delete/**")).authenticated()
+
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("**")).permitAll()
                         .requestMatchers(toH2Console()).permitAll())

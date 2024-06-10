@@ -12,6 +12,7 @@ public class FileDB {
 
     private String name;
     private String type;
+    private String uploader;
 
     @Lob
     private byte[] data;
@@ -19,10 +20,11 @@ public class FileDB {
     public FileDB() {
     }
 
-    public FileDB(String name, String type, byte[] data) {
+    public FileDB(String name, String type, String uploader, byte[] data) {
         this.name = name;
         this.type = type;
         this.data = data;
+        this.uploader = uploader;
     }
 
     public byte[] getData() {

@@ -25,8 +25,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // ensures in Jackson that this field
-    @NotBlank(message = "Password should not be blank")    // is not sent in response POJO
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotBlank(message = "Password should not be blank")
     private String password;
 
     @JsonIgnore

@@ -42,8 +42,33 @@
 
     </br>
 
-    <div id="audioDiv"></div>
-    <input type="range" id="current_time" min="0" max="100" value="0" step="1" />
+    <div id="player">
+        <div id="audioDiv"></div>
+
+        <div id="controls" class="controls" hidden="hidden">
+            <label for="current-time-input"></label><input type="range" id="current-time-input" min="0" max="100" value="0" step="1" list="values0-100"/>
+            <label for="volume-control"></label><input type="range" id="volume-control" min="0" max="1" step="0.01" value="1" list="values0-1">
+            <div id="current-time">0:00</div>
+            <div id="total-time">0:00</div>
+        </div>
+
+        <datalist id="values0-100">
+            <option value="0" label="0"></option>
+            <option value="25" label="25"></option>
+            <option value="50" label="50"></option>
+            <option value="75" label="75"></option>
+            <option value="100" label="100"></option>
+        </datalist>
+
+        <datalist id="values0-1">
+            <option value="0" label="0"></option>
+            <option value="0.25" label="0.25"></option>
+            <option value="0.50" label="0.50"></option>
+            <option value="0.75" label="0.75"></option>
+            <option value="1" label="1"></option>
+        </datalist>
+
+    </div>
 
     </br>
 

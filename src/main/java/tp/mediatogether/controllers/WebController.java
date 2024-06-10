@@ -1,6 +1,7 @@
 package tp.mediatogether.controllers;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +57,7 @@ public class WebController {
 
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             model.addAttribute("authenticated", true);
-            return "index";
+            return "redirect:/";
         }
         model.addAttribute("registrationForm", new RegistrationForm());
         return "register";
@@ -86,8 +87,12 @@ public class WebController {
 
     @PostMapping("/upload")
     public String handleFileUpload(MultipartFile file, RedirectAttributes redirectAttributes) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
         try {
-            storageService.store(file);
+            storageService.store(file, username);
         } catch (IOException e) {
             redirectAttributes.addFlashAttribute("message", "Failed to upload " + file.getOriginalFilename() + "! " + e.getMessage());
             return "redirect:/upload";
@@ -96,6 +101,20 @@ public class WebController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
         return "redirect:/upload";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = (User) userService.loadUserByUsername(authentication.getName());
+        model.addAttribute("user", user);
+
+        List<FileNoData> files = storageService.getAllFilesByUploader(user.getUsername());
+        model.addAttribute("songs", files);
+
+        return "profile";
     }
 
     @GetMapping("/room")
@@ -124,6 +143,14 @@ public class WebController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
                 .body(file.getData());
+    }
+
+    @Transactional
+    @PostMapping("/delete/{id}")
+    public String deleteFile(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        storageService.deleteFile(id);
+        redirectAttributes.addFlashAttribute("message", "File deleted successfully!");
+        return "redirect:/profile";
     }
 
 }
