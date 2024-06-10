@@ -54,6 +54,7 @@ DB_URL=jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;
 DB_USER=SA
 DB_PASSWORD=<YourStrong@Passw0rd>
 DB_DRIVER=com.microsoft.sqlserver.jdbc.SQLServerDriver
+HOST_IP=<Your_IP>
 
 HIBERNATE_DIALECT=org.hibernate.dialect.SQLServerDialect # or your driver if not using MSSQL
 ```
