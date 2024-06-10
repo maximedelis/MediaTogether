@@ -4,9 +4,27 @@ A Spring app to consume content with your friends.
 
 ## Status
 
-In dev...
+Working!
 
 ## Getting started (local dev)
+
+### Create a .env file
+
+```bash
+nano .env
+```
+
+Add the following lines:
+
+```bash
+DB_URL=jdbc:sqlserver://<DB_IP>:1433;encrypt=true;trustServerCertificate=true;databaseName=mssql # put "mssql" as the DB_IP if you wanna use docker compose, localhost otherwise
+DB_USER=SA
+DB_PASSWORD=<YourStrong@Passw0rd>
+DB_DRIVER=com.microsoft.sqlserver.jdbc.SQLServerDriver
+HOST_IP=<Your_IP> # use your IPv4 to allow access to the app from other devices
+
+HIBERNATE_DIALECT=org.hibernate.dialect.SQLServerDialect # or your driver if not using MSSQL
+```
 
 ### Lazy run
 
@@ -39,24 +57,6 @@ Create a database:
 
 ```bash
 sudo docker exec -it mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>" -Q "CREATE DATABASE mssql"
-```
-
-### Create a .env file
-
-```bash
-nano .env
-```
-
-Add the following lines:
-
-```bash
-DB_URL=jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=mssql
-DB_USER=SA
-DB_PASSWORD=<YourStrong@Passw0rd>
-DB_DRIVER=com.microsoft.sqlserver.jdbc.SQLServerDriver
-HOST_IP=<Your_IP>
-
-HIBERNATE_DIALECT=org.hibernate.dialect.SQLServerDialect # or your driver if not using MSSQL
 ```
 
 ### Misc

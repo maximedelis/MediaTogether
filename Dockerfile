@@ -1,5 +1,7 @@
 # Build environment
-FROM gradle:8.4.0-jdk17-alpine AS builder
+FROM amazoncorretto:21-alpine-jdk AS builder
+
+RUN cd /home
 
 # Copy build.gradle, settings.gradle and gradlew
 COPY build.gradle settings.gradle gradlew ./
@@ -14,10 +16,12 @@ COPY gradle ./gradle
 RUN ./gradlew clean bootJar
 
 # Minimal RE
-FROM openjdk:17-alpine
+FROM amazoncorretto:21-alpine-jdk
+
+RUN cd /home
 
 # Copy jar to the RE
-COPY --from=builder /home/gradle/build/libs/mediatogether-0.0.1-SNAPSHOT.jar mediatogether.jar
+COPY --from=builder ./build/libs/MediaTogether-0.0.1-SNAPSHOT.jar mediatogether.jar
 
 EXPOSE 8080
 

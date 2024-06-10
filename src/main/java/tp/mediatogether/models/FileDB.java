@@ -2,6 +2,7 @@ package tp.mediatogether.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.Id;
 
 @Entity
 @Table(name = "files")
